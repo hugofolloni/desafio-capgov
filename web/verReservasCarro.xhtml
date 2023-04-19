@@ -1,14 +1,38 @@
 <?xml version='1.0' encoding='UTF-8' ?>
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml"
-      xmlns:h="http://xmlns.jcp.org/jsf/html">
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:p="http://primefaces.org/ui"
+      xmlns:f="http://xmlns.jcp.org/jsf/core">
     <h:head>
         <title>Agenda Carro</title>
     </h:head>
     <h:body>
         <div class="container">
-            <label for='placa' value='Placa'></label>
-            <input type='text' name='placa'>
+            <h1>Busca carro</h1>
+            <h:form style="height: 50%; display: flex; align-items: center; flex-direction: column">
+                <label for="parametro" value='Placa' />
+                <p:inputMask id="parametro"  required="true" requiredMessage="Placa obrigatória" value="#{agendamentoBean.parametro}" mask="aaa9*99"/>
+                <h:outputText value="#{agendamentoBean.parametro}" />
+                <p:commandButton value="Pesquisar" action="#{agendamentoBean.buscaPorCarro()}" update='tabela' /> 
+            
+                
+            
+                <p:dataTable var="item" value="#{agendamentoBean.buscaPorCarro()}" id='tabela' style="text-align: center">
+                    <p:column headerText="Cliente">
+                        <h:outputText value="#{item.nomeAgendado}" />
+                    </p:column>
+                    <p:column headerText="Carro">
+                        <h:outputText value="#{item.carro}" />
+                    </p:column>
+                    <p:column headerText="Data">
+                        <h:outputText value="#{item.dataAgendamento}" />
+                    </p:column>
+                    <p:column headerText="Observações">
+                        <h:outputText value="#{item.textoLivre}" />
+                    </p:column>
+                </p:dataTable>
+             </h:form>
         </div>
     </h:body>
 </html>

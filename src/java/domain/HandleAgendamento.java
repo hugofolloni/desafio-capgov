@@ -144,10 +144,26 @@ public class HandleAgendamento {
         try {
             EntityManagerFactory emf = Persistence.createEntityManagerFactory("capgov_crud");
             EntityManager em = emf.createEntityManager();
+          
+            agendamentos = em.createQuery("SELECT a FROM Agendamento a WHERE a.carro = :placa_carro", Agendamento.class).setParameter("placa_carro", carro).getResultList();
 
-            agendamentos = em.createQuery("SELECT a FROM Agendamento a WHERE a.carro = :carro", Agendamento.class)
-                    .setParameter("carro", carro)
-                    .getResultList();
+            em.close();
+            emf.close();
+        } catch (Exception e) {
+            return null;
+        }   
+
+        return agendamentos;
+    }
+    
+    public List<Agendamento> readByCpf (String cpf) {
+        List<Agendamento> agendamentos = new ArrayList<Agendamento>();
+
+        try {
+            EntityManagerFactory emf = Persistence.createEntityManagerFactory("capgov_crud");
+            EntityManager em = emf.createEntityManager();
+
+            agendamentos = em.createQuery("SELECT a FROM Agendamento a WHERE a.cpf = :cpf", Agendamento.class).setParameter("cpf", cpf).getResultList();
 
             em.close();
             emf.close();

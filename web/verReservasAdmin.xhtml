@@ -12,6 +12,9 @@
         <div style="display: flex; justify-content: center; align-items: center; min-height: 100vh; flex-direction: column">
             <h:form style="height: 50%; width: 75%">
                 <p:dataTable var="item" value="#{agendamentoBean.agendamentos}" style="text-align: center">
+                    <p:column headerText="Id">
+                        <h:outputText value="#{item.id}" />
+                    </p:column>
                     <p:column headerText="Cliente">
                         <h:outputText value="#{item.nomeAgendado}" />
                     </p:column>
@@ -24,16 +27,15 @@
                     <p:column headerText="Observações">
                         <h:outputText value="#{item.textoLivre}" />
                     </p:column>
-                    <p:column headerText="Excluir/Editar">
+                    <p:column headerText="Excluir">
                         <p:commandButton action="#{agendamentoBean.delete}" icon="ui-icon-trash" title="Apagar reserva" oncomplete="location.reload()">
                             <f:setPropertyActionListener target="#{agendamentoBean.id}" value="#{item.id}"/>
                         </p:commandButton>
-                        <p:button outcome="atualizarReserva" icon="ui-icon-pencil">
-                           <f:param name='id' value="#{item.id}"/>
-                        </p:button>
                     </p:column>
                 </p:dataTable>
+                 <p:button outcome="atualizarReserva" icon="ui-icon-pencil" />
             </h:form>
+         
             <p:button outcome="index" value="Home" icon="ui-icon-home" style="margin: 5px"></p:button>
         </div>
     </h:body>

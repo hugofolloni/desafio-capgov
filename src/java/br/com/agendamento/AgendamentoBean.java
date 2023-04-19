@@ -3,6 +3,7 @@ package br.com.agendamento;
 import domain.Agendamento;
 import domain.HandleAgendamento;
 import java.sql.Timestamp;
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 import javax.faces.bean.RequestScoped;
@@ -20,8 +21,11 @@ public class AgendamentoBean {
     private Agendamento agendamento;
     private Long id;
     private String cpf;
+    private String parametro;
     
     private String response;
+    
+    private List<Agendamento> agendamentoByCarro;
 
     public void setNomeAgendado (String nomeDoAgendado) {
         this.nomeAgendado = nomeDoAgendado;
@@ -125,7 +129,6 @@ public class AgendamentoBean {
         this.setResponse("Agendamento criado!");
         this.setCorResponse("green");
         
-        
         return "index.xhtml?faces-redirect=true&includeViewParams=true";
     }
 
@@ -141,10 +144,13 @@ public class AgendamentoBean {
         return agendamento;
     }
 
-    public List<Agendamento> getAgendamentoByCarro(String carro) {
+    public List<Agendamento> getAgendamentoByCarro() {
+        return this.agendamentoByCarro;
+    }
+    
+    public void setAgendamentoByCarro(String carro){
         HandleAgendamento handleAgendamento = new HandleAgendamento();
-        agendamentos = handleAgendamento.readByCar(carro);
-        return agendamentos;
+        this.agendamentoByCarro = handleAgendamento.readByCar(carro);
     }
 
     public String delete () {
@@ -160,6 +166,7 @@ public class AgendamentoBean {
         }  
         return "index.xhtml?faces-redirect=true&includeViewParams=true";
     }
+    
     public void setResponse (String response) {
         this.response = response;
     }
@@ -168,14 +175,12 @@ public class AgendamentoBean {
         return this.response;
     }
     
-    private String buscaCarro;
-    
-    public void setBuscaCarro (String buscaCarro){
-        this.buscaCarro = carro;
+    public String getParametro() {
+        return parametro;
     }
-    
-    public String getBuscaCarro (){
-        return this.buscaCarro;
+
+    public void setParametro(String parametro) {
+        this.parametro = parametro;
     }
     
     private String corResponse;
@@ -188,6 +193,21 @@ public class AgendamentoBean {
         return this.corResponse;
     }
     
+    public List<Agendamento> buscaPorCarro(){
+        HandleAgendamento handleAgendamento = new HandleAgendamento();
+        List<Agendamento> lista = new ArrayList<>();
+       
+        lista = handleAgendamento.readByCar(this.parametro);
+        return lista;
+    }
+    
+    public List<Agendamento> buscaPorCpf(){
+        HandleAgendamento handleAgendamento = new HandleAgendamento();
+        List<Agendamento> lista = new ArrayList<>();
+       
+        lista = handleAgendamento.readByCpf(this.parametro);
+        return lista;
+    }
     
 
 }
