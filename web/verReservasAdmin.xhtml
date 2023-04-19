@@ -28,8 +28,8 @@
                         <p:commandButton action="#{agendamentoBean.delete}" icon="ui-icon-trash" title="Apagar reserva" oncomplete="location.reload()">
                             <f:setPropertyActionListener target="#{agendamentoBean.id}" value="#{item.id}"/>
                         </p:commandButton>
-                        <p:button outcome="updateReserva" icon="ui-icon-pencil">
-                            <f:param name="id" value="#{item.id}"/>
+                        <p:button outcome="atualizarReserva" icon="ui-icon-pencil">
+                           <f:param name='id' value="#{item.id}"/>
                         </p:button>
                     </p:column>
                 </p:dataTable>

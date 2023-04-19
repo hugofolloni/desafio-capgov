@@ -11,7 +11,7 @@
         <div style="display: flex; justify-content: center; align-items: center; min-height: 100vh; flex-direction: column">
             <p:panel header="Criar Reserva">
                 <h:form style="height: 50%; display: flex; align-items: center; flex-direction: column">
-                    <h:outputText id="msg" value="#{agendamentoBean.response}" style="margin-bottom: 20px; color: green"/>
+                    <h:outputText id="msg" value="#{agendamentoBean.response}" style="margin-bottom: 20px; color: #{agendamentoBean.corResponse}"/>
                     <p:panelGrid columns="2">
                         <h:outputLabel for="nome" value="Nome:" />
                         <p:inputText id="nome" value="#{agendamentoBean.nomeAgendado}" />
@@ -25,12 +25,13 @@
                         <p:outputLabel for="datetime" value="Data e Hora: " />
                         <p:calendar id="datetime" value="#{agendamentoBean.dataAgendamento}" pattern="dd/MM/yyyy HH:mm" />
 
-                        <h:outputLabel for="numPessoas" value="Placa do Carro" />
-                        <p:inputText id="carro" value="#{agendamentoBean.carro}" />
+                        <h:outputLabel for="carro" value="Placa do Carro" />
+                        <p:inputMask id="carro" value="#{agendamentoBean.carro}" mask="aaa9*99"/>
                     </p:panelGrid>
-                    <p:commandButton type="submit" value="Criar Reserva" action="#{agendamentoBean.create()}" update="msg" style="margin-top: 15px" />
+                    <p:commandButton type="submit" value="Criar Reserva" action="#{agendamentoBean.create()}" update="msg" style="margin-top: 15px" oncomplete="RedirectionJS(); {window.location.href='index.xhtml';}"/>
                 </h:form>
             </p:panel>
+             <p:button outcome="index" value="Home" icon="ui-icon-home" style="margin-top: 15px"></p:button>
         </div>
     </h:body>
 </html>

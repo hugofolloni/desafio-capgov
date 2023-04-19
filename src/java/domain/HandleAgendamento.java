@@ -14,7 +14,8 @@ public class HandleAgendamento {
 
     public boolean create (String nomeAgendado, Date dataAgendamento, String carro, String textoLivre, String cpf) {
         try {
-            EntityManagerFactory emf = Persistence.createEntityManagerFactory("AgendamentoPU");
+            
+            EntityManagerFactory emf = Persistence.createEntityManagerFactory("capgov_crud");
             EntityManager em = emf.createEntityManager();
 
             Timestamp dateTimestamp = new Timestamp(dataAgendamento.getTime());
@@ -60,7 +61,7 @@ public class HandleAgendamento {
 
     public boolean update (Long id, String nomeAgendado, Date dataAgendamento, String carro, String textoLivre, String cpf) {
         try {
-            EntityManagerFactory emf = Persistence.createEntityManagerFactory("AgendamentoPU");
+            EntityManagerFactory emf = Persistence.createEntityManagerFactory("capgov_crud");
             EntityManager em = emf.createEntityManager();
 
             em.getTransaction().begin();
@@ -75,6 +76,7 @@ public class HandleAgendamento {
             em.close();
             emf.close();
         } catch (Exception e) {
+            System.err.println(e);
             return false;
         }   
 
@@ -83,7 +85,7 @@ public class HandleAgendamento {
 
     public boolean delete (Long id) {
         try {
-            EntityManagerFactory emf = Persistence.createEntityManagerFactory("AgendamentoPU");
+            EntityManagerFactory emf = Persistence.createEntityManagerFactory("capgov_crud");
             EntityManager em = emf.createEntityManager();
 
             em.getTransaction().begin();
@@ -104,7 +106,7 @@ public class HandleAgendamento {
         List<Agendamento> agendamentos = new ArrayList<Agendamento>();
 
         try {
-            EntityManagerFactory emf = Persistence.createEntityManagerFactory("AgendamentoPU");
+            EntityManagerFactory emf = Persistence.createEntityManagerFactory("capgov_crud");
             EntityManager em = emf.createEntityManager();
 
             agendamentos = em.createQuery("SELECT a FROM Agendamento a", Agendamento.class).getResultList();
@@ -122,7 +124,7 @@ public class HandleAgendamento {
         Agendamento agendamento = new Agendamento();
 
         try {
-            EntityManagerFactory emf = Persistence.createEntityManagerFactory("AgendamentoPU");
+            EntityManagerFactory emf = Persistence.createEntityManagerFactory("capgov_crud");
             EntityManager em = emf.createEntityManager();
 
             agendamento = em.find(Agendamento.class, id);
@@ -140,7 +142,7 @@ public class HandleAgendamento {
         List<Agendamento> agendamentos = new ArrayList<Agendamento>();
 
         try {
-            EntityManagerFactory emf = Persistence.createEntityManagerFactory("AgendamentoPU");
+            EntityManagerFactory emf = Persistence.createEntityManagerFactory("capgov_crud");
             EntityManager em = emf.createEntityManager();
 
             agendamentos = em.createQuery("SELECT a FROM Agendamento a WHERE a.carro = :carro", Agendamento.class)
@@ -156,11 +158,11 @@ public class HandleAgendamento {
         return agendamentos;
     }
 
-    private String readNameByCPF (String cpf) {
+    public String readNameByCPF (String cpf) {
         String nome = "";
 
         try {
-            EntityManagerFactory emf = Persistence.createEntityManagerFactory("AgendamentoPU");
+            EntityManagerFactory emf = Persistence.createEntityManagerFactory("capgov_crud");
             EntityManager em = emf.createEntityManager();
 
             nome = em.createQuery("SELECT a.nomeAgendado FROM Agendamento a WHERE a.cpf = :cpf", String.class)

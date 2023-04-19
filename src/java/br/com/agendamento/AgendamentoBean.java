@@ -59,6 +59,10 @@ public class AgendamentoBean {
         return this.id;
     }    
     
+    public void setId(Long id){
+        this.id = id;
+    }
+    
     public void setCpf(String cpf){
         this.cpf = cpf;
     }
@@ -67,8 +71,16 @@ public class AgendamentoBean {
         return this.cpf;
     }
 
-    public void create () {
+    public String create () {
+        this.setResponse("");
+        
         HandleAgendamento handleAgendamento = new HandleAgendamento();
+        
+        if(dataAgendamento == null){
+            this.setResponse("O campo data não pode estar vazio") ;
+            this.setCorResponse("red");
+            return "";
+        }
         
         Timestamp dateTimestamp = new Timestamp(dataAgendamento.getTime());
         Timestamp currentTimestamp = new Timestamp(System.currentTimeMillis());
@@ -77,11 +89,44 @@ public class AgendamentoBean {
         
         if(diff < 0){
             this.setResponse("Data inválida!");
+            this.setCorResponse("red");
+            return "";
         }
-        else {
-            handleAgendamento.create(nomeAgendado, dataAgendamento, carro, textoLivre, cpf);
-            this.setResponse("Agendamento criado!");
+        
+        if(nomeAgendado == null || nomeAgendado.isEmpty()){
+            this.setResponse("O par Cliente-CPF não pode ser agendado!") ;
+            this.setCorResponse("red");
+            return "";
         }
+
+        if(cpf == null || cpf.isEmpty()){
+            this.setResponse("O campo CPF não pode estar vazio") ;
+            this.setCorResponse("red");
+            return "";
+        }
+
+        
+        if(carro == null || carro.isEmpty()){
+            this.setResponse("O campo carro não pode estar vazio!") ;
+            this.setCorResponse("red");
+            return "";
+        }
+
+        String nomeCpf = handleAgendamento.readNameByCPF(cpf);
+        if(nomeCpf != null && !nomeCpf.isEmpty()){
+            if(!nomeCpf.equals(nomeAgendado)){
+                this.setResponse("O par Cliente-CPF não pode ser agendado!") ;
+                this.setCorResponse("red");
+                return "";
+            }   
+        }
+            
+        handleAgendamento.create(nomeAgendado, dataAgendamento, carro, textoLivre, cpf);
+        this.setResponse("Agendamento criado!");
+        this.setCorResponse("green");
+        
+        
+        return "index.xhtml?faces-redirect=true&includeViewParams=true";
     }
 
     public List<Agendamento> getAgendamentos() {
@@ -105,15 +150,16 @@ public class AgendamentoBean {
     public String delete () {
         HandleAgendamento handleAgendamento = new HandleAgendamento();
         handleAgendamento.delete(id);
-        return "agendamento.xhtml";
+        return "verReservasAdmin.xtml";
     }
 
     public String update () {
         HandleAgendamento handleAgendamento = new HandleAgendamento();
-        handleAgendamento.update(id, nomeAgendado, dataAgendamento, carro, textoLivre, cpf);
-        return "agendamento.xhtml";
+        if(!handleAgendamento.update(id, nomeAgendado, dataAgendamento, carro, textoLivre, cpf)){
+           this.setResponse("Não foi possível atualizar");      
+        }  
+        return "index.xhtml?faces-redirect=true&includeViewParams=true";
     }
-    
     public void setResponse (String response) {
         this.response = response;
     }
@@ -121,6 +167,28 @@ public class AgendamentoBean {
     public String getResponse (){
         return this.response;
     }
+    
+    private String buscaCarro;
+    
+    public void setBuscaCarro (String buscaCarro){
+        this.buscaCarro = carro;
+    }
+    
+    public String getBuscaCarro (){
+        return this.buscaCarro;
+    }
+    
+    private String corResponse;
+    
+    private void setCorResponse (String cor){
+        this.corResponse = cor;
+    }
+    
+    public String getCorResponse (){
+        return this.corResponse;
+    }
+    
+    
 
 }
 
