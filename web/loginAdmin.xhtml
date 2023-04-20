@@ -33,11 +33,11 @@
               .container {
                 position: absolute;
                 width: 40vw;
-                height: 80vh;
+                height: 40vh;
                 background-color: white;
                 border-radius: 12px;
                 top: 0;
-                margin-top: calc(50vh - 40vh);
+                margin-top: calc(50vh - 20vh);
                 margin-left: calc(50vw - 20vw);
                 padding: 40px;
                 box-shadow: 0px 10px 15px -3px rgba(0,0,0,0.1);
@@ -80,39 +80,25 @@
                   flex-direction: column; 
                   justify-content: space-around;
               }
-              
         </style>
     </h:head>
     <h:body>
         <div class='background'></div>
         <a class='home' href='/desafio-capgov'>honey</a>
         <div class='container'>
-            <h1 class='title'>Agende sua próxima viagem</h1>
+            <h1 class='title'>Autenticar como administrador</h1>
                 <h:form class="form">
                     <h:outputText id="msg" value="#{agendamentoBean.response}" style="margin-bottom: 20px; color: #{agendamentoBean.corResponse}"/>
                     <div class="row">
-                        <h:outputLabel class='label' for="nome" value="Nome" />
-                        <p:inputText class="inputs" id="nome" value="#{agendamentoBean.nomeAgendado}" />
+                        <h:outputLabel for="login" value="Login" />
+                        <p:inputText id="login" value="#{agendamentoBean.loginAdmin}" />
                     </div>
-                    <div class="row">    
-                        <h:outputLabel class='label' for="cpf" value="CPF" />
-                        <p:inputMask class="inputs" id="cpf" value="#{agendamentoBean.cpf}" mask="999.999.999-99"/>
-                    </div>
-                    <div class="row">
-                        <h:outputLabel class='label' for="obs" value="Observações" />
-                        <p:inputTextarea class="inputs" id="obs" value="#{agendamentoBean.textoLivre}" rows="6" cols="23"/>
-                    </div>
-                    <div class="row">
-                        <p:outputLabel class='label' for="datetime" value="Data e Hora" />
-                        <p:calendar class="inputs" id="datetime" value="#{agendamentoBean.dataAgendamento}" pattern="dd/MM/yyyy HH:mm" />
-                    </div>
-                    <div class="row">
-                        <h:outputLabel class='label' for="carro" value="Placa do Carro" />
-                        <p:inputMask class="inputs" id="carro" value="#{agendamentoBean.carro}" mask="aaa9*99"/>                    
-                    </div>
-                    <p:commandButton type="submit" value="Criar Reserva" action="#{agendamentoBean.create()}" update="msg" style="width: 10vw; margin-left: 17.5vw; margin-top: 15px; background-color: #5A0B4D; font-weight: 500; font-size: 16px; box-shadow: none; color: white; border: none;"/>
+                     <div class="row">
+                        <h:outputLabel for="senha" value="Senha" />
+                        <p:password id="toggle" value="#{agendamentoBean.senhaAdmin}" redisplay="true"/>
+                    </div>   
+                    <p:commandButton type="submit" value="Logar" action="#{agendamentoBean.authenticateAdmin()}" update="msg" style="width: 10vw; margin-left: 17.5vw; font-size: 16px; margin-top: 15px; background-color: #5A0B4D; font-weight: 500; box-shadow: none; color: white; border: none;" />
                 </h:form>
-          
         </div>
     </h:body>
 </html>

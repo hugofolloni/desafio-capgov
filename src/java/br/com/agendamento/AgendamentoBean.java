@@ -124,6 +124,19 @@ public class AgendamentoBean {
                 return "";
             }   
         }
+        
+        if(!checkCpfData(cpf, dataAgendamento)){
+            this.setResponse("Essa reserva é muito próxima de outra para o mesmo cliente!") ;
+            this.setCorResponse("red");
+            return "";
+        }
+        
+        if(!checkCarroData(carro, dataAgendamento)){
+            this.setResponse("Essa reserva é muito próxima de outra para o mesmo carro!") ;
+            this.setCorResponse("red");
+            return "";
+        }
+        
             
         handleAgendamento.create(nomeAgendado, dataAgendamento, carro, textoLivre, cpf);
         this.setResponse("Agendamento criado!");
@@ -164,7 +177,7 @@ public class AgendamentoBean {
         if(!handleAgendamento.update(id, nomeAgendado, dataAgendamento, carro, textoLivre, cpf)){
            this.setResponse("Não foi possível atualizar");      
         }  
-        return "index.xhtml?faces-redirect=true&includeViewParams=true";
+        return "verReservasAdmin.xtml";
     }
     
     public void setResponse (String response) {
@@ -209,6 +222,75 @@ public class AgendamentoBean {
         return lista;
     }
     
+     public boolean checkCpfData(String cpf, Date data){
+         HandleAgendamento handleAgendamento = new HandleAgendamento();
+         List<Agendamento> lista = new ArrayList<>();
+         
+         lista = handleAgendamento.readByCpf(cpf);
+         
+         
+         
+         for(Agendamento agendamento : lista){          
+             int diff = (int) (data.getTime() - agendamento.getDataAgendamento().getTime());
+             if(diff < 600000 && diff > -600000){
+                 System.out.println(diff);
+                 return false;
+             }
+         }
+         
+         return true;
+         
+     }
+     
+     public boolean checkCarroData(String carro, Date data){
+         HandleAgendamento handleAgendamento = new HandleAgendamento();
+         List<Agendamento> lista = new ArrayList<>();
+         
+         lista = handleAgendamento.readByCar(carro);
+         
+         
+         
+         for(Agendamento agendamento : lista){          
+             int diff = (int) (data.getTime() - agendamento.getDataAgendamento().getTime());
+             if(diff < 600000 && diff > -600000){
+                 System.out.println(diff);
+                 return false;
+             }
+         }
+         
+         return true;
+         
+     }
+     
+     
+     private String loginAdmin;
+     private String senhaAdmin;
+     
+     public String getLoginAdmin(){
+         return this.loginAdmin;
+     }
+     
+     public void setLoginAdmin(String login){
+         this.loginAdmin = login;
+     }
+     
+     public String getSenhaAdmin(){
+         return this.senhaAdmin;
+     }
+     
+     public void setSenhaAdmin(String senha){
+         this.senhaAdmin = senha;
+     }
+     
+     public String authenticateAdmin(){
+         if(loginAdmin.equals("admin") && senhaAdmin.equals("admin")){
+             return "verReservasAdmin.xhtml?faces-redirect=true&includeViewParams=true";
+         }
+         else {
+             this.setResponse("Não foi possível autenticar!");
+             return "";
+         }
+     }
 
 }
 

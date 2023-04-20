@@ -46,7 +46,7 @@ public class HandleAgendamento {
             }
 
             em.getTransaction().begin();
-            Agendamento agendamento = new Agendamento(nomeAgendado, dataAgendamento, carro, textoLivre, cpf);
+            Agendamento agendamento = new Agendamento(nomeAgendado, dataAgendamento, carro.toLowerCase(), textoLivre, cpf);
             em.persist(agendamento);
             em.getTransaction().commit();
 
@@ -192,5 +192,23 @@ public class HandleAgendamento {
         }   
 
         return nome;
+    }
+    
+    public List<Agendamento> getAgendamentoByDate(Date date){
+        List<Agendamento> agendamentos = new ArrayList<Agendamento>();
+
+        try {
+            EntityManagerFactory emf = Persistence.createEntityManagerFactory("capgov_crud");
+            EntityManager em = emf.createEntityManager();
+
+            agendamentos = em.createQuery("SELECT a FROM Agendamento a WHERE a.date = :date", Agendamento.class).setParameter("date", date).getResultList();
+
+            em.close();
+            emf.close();
+        } catch (Exception e) {
+            return null;
+        }   
+
+        return agendamentos;
     }
 }

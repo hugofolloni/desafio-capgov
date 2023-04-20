@@ -6,37 +6,113 @@
       xmlns:f="http://xmlns.jcp.org/jsf/core">
 
     <h:head>
-        <title>Consultar Reservas</title>
+        <title>honey</title>
+        <style>
+            * {
+                padding: 0;
+                margin: 0;
+                box-sizing: border-box;
+                font-family: "Poppins", sans-serif;
+              }
+
+              body {
+                background-color: #f1f1f1;
+                height: 100vh;
+                position: relative;
+                overflow-y: hidden;
+              }
+
+              .background {
+                background-color: #5A0B4D;
+                height: 50vh;
+                width: 100%;
+                display: flex;
+                justify-content: center;
+                align-items: center;
+              }
+
+              .container {
+                position: absolute;
+                width: 80vw;
+                height: 80vh;
+                background-color: white;
+                border-radius: 12px;
+                top: 0;
+                margin-top: calc(50vh - 40vh);
+                margin-left: calc(50vw - 40vw);
+                padding: 40px;
+                box-shadow: 0px 10px 15px -3px rgba(0,0,0,0.1);
+              }
+              
+              .title {
+                  color: #5A0B4D;
+                  font-size: 24px;
+              }
+        
+              .home {
+                  position: absolute;
+                  top: 2%;
+                  left: 2%;
+                  color: white;
+                  letter-spacing: -10px;
+                  font-size: 64px;
+                  text-decoration: none;
+              }
+              
+              .row {
+                  width: 80%;
+                  display: flex;
+                  justify-content: space-between;
+              }
+              
+              .label{
+                  font-weight: 300;
+                  font-size: 16px;
+              }
+              
+              .inputs {
+                  width: 228px;
+              }
+              
+              .form {
+                  height: 100%; 
+                  display: flex; 
+                  align-items: center; 
+                  flex-direction: column; 
+                  justify-content: space-around;
+              }
+        </style>
     </h:head>
-    <h:body style="display: flex; justify-content: space-around; align-items: center;">
-        <div style="display: flex; justify-content: center; align-items: center; min-height: 100vh; flex-direction: column">
-            <h:form style="height: 50%; width: 75%">
-                <p:dataTable var="item" value="#{agendamentoBean.agendamentos}" style="text-align: center">
-                    <p:column headerText="Id">
+    <h:body>
+        <div class='background'></div>
+        <a class='home' href='/desafio-capgov'>←</a>
+        <div class='container'>
+            <h:form style="height: 100%; width: 100%">
+                <p:dataTable var="item" value="#{agendamentoBean.agendamentos}" style="text-align: center; overflow-y: auto; height: 90%">
+                    <p:column headerText="ID" style="width: 5%;">
                         <h:outputText value="#{item.id}" />
                     </p:column>
-                    <p:column headerText="Cliente">
+                    <p:column headerText="Cliente" style="width: 20%;">
                         <h:outputText value="#{item.nomeAgendado}" />
                     </p:column>
-                    <p:column headerText="Carro">
+                    <p:column headerText="Carro" style="width: 15%;">
                         <h:outputText value="#{item.carro}" />
                     </p:column>
-                    <p:column headerText="Data">
+                    <p:column headerText="Data" style="width: 15%;">
                         <h:outputText value="#{item.dataAgendamento}" />
                     </p:column>
-                    <p:column headerText="Observações">
+                    <p:column headerText="Observações" style="width: 35%;">
                         <h:outputText value="#{item.textoLivre}" />
                     </p:column>
-                    <p:column headerText="Excluir">
+                    <p:column headerText="Excluir" style="width: 10%;">
                         <p:commandButton action="#{agendamentoBean.delete}" icon="ui-icon-trash" title="Apagar reserva" oncomplete="location.reload()">
                             <f:setPropertyActionListener target="#{agendamentoBean.id}" value="#{item.id}"/>
                         </p:commandButton>
                     </p:column>
                 </p:dataTable>
-                 <p:button outcome="atualizarReserva" icon="ui-icon-pencil" />
+                 <p:button style="width: 25%;" outcome="atualizarReserva" icon="ui-icon-pencil" />
             </h:form>
-         
-            <p:button outcome="index" value="Home" icon="ui-icon-home" style="margin: 5px"></p:button>
+        
         </div>
     </h:body>
 </html>

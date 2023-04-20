@@ -4,33 +4,127 @@
       xmlns:h="http://xmlns.jcp.org/jsf/html"
       xmlns:p="http://primefaces.org/ui"
       xmlns:f="http://xmlns.jcp.org/jsf/core">
-    <h:head>
-        <title>Agenda Carro</title>
+     <h:head>
+        <title>honey</title>
+        <style>
+            * {
+                padding: 0;
+                margin: 0;
+                box-sizing: border-box;
+                font-family: "Poppins", sans-serif;
+              }
+
+              body {
+                background-color: #f1f1f1;
+                height: 100vh;
+                position: relative;
+                overflow-y: hidden;
+              }
+
+              .background {
+                background-color: #5A0B4D;
+                height: 50vh;
+                width: 100%;
+                display: flex;
+                justify-content: center;
+                align-items: center;
+              }
+
+              .container {
+                position: absolute;
+                width: 80vw;
+                height: 80vh;
+                background-color: white;
+                border-radius: 12px;
+                top: 0;
+                margin-top: calc(50vh - 40vh);
+                margin-left: calc(50vw - 40vw);
+                padding: 40px;
+                box-shadow: 0px 10px 15px -3px rgba(0,0,0,0.1);
+              }
+              
+              .title {
+                  color: #5A0B4D;
+                  font-size: 24px;
+              }
+        
+              .home {
+                  position: absolute;
+                  top: 2%;
+                  left: 2%;
+                  color: white;
+                  letter-spacing: -10px;
+                  font-size: 64px;
+                  text-decoration: none;
+              }
+              
+              .row {
+                  width: 80%;
+                  display: flex;
+                  justify-content: space-between;
+              }
+              
+              .label{
+                  font-weight: 300;
+                  font-size: 16px;
+              }
+              
+              .inputs {
+                  width: 228px;
+              }
+              
+              .form {
+                  height: 100%; 
+                  display: flex; 
+                  align-items: center; 
+                  flex-direction: column; 
+                  justify-content: space-around;
+              }
+              
+              .row {
+                  width: 50%;
+                  display: flex;
+                  justify-content: space-between;
+                  align-items: center;
+                  margin-left: -50%;
+                  margin-bottom: 20px;
+              }
+              
+              .input {
+                  width: 60%;
+              }
+              
+              .button {
+                  width: 35%;
+              }
+              
+        </style>
     </h:head>
     <h:body>
-        <div class="container">
-            <h1>Busca carro</h1>
-            <h:form style="height: 50%; display: flex; align-items: center; flex-direction: column">
-                <label for="parametro" value='Placa' />
-                <p:inputMask id="parametro"  required="true" requiredMessage="Placa obrigatória" value="#{agendamentoBean.parametro}" mask="aaa9*99"/>
-                <h:outputText value="#{agendamentoBean.parametro}" />
-                <p:commandButton value="Pesquisar" action="#{agendamentoBean.buscaPorCarro()}" update='tabela' /> 
-            
+        <div class='background'></div>
+        <a class='home' href='/desafio-capgov'>←</a>
+        <div class='container'>
+            <h:form style="height: 100%; display: flex; align-items: center; flex-direction: column">
                 
+                <div class='row'>
+                    <p:inputMask id="parametro" class='input' placeholder="Placa do carro" required="true" requiredMessage="Placa obrigatória" value="#{agendamentoBean.parametro}" mask="aaa9*99"/>
+                    <p:commandButton class='button' value="Pesquisar" action="#{agendamentoBean.buscaPorCarro()}" update='tabela' /> 
+                </div>
             
-                <p:dataTable var="item" value="#{agendamentoBean.buscaPorCarro()}" id='tabela' style="text-align: center">
-                    <p:column headerText="Cliente">
+      
+                <p:dataTable var="item" value="#{agendamentoBean.buscaPorCarro()}" id="tabela" style="text-align: center; overflow-y: auto; height: 90%">         
+                    <p:column headerText="Cliente" style="width: 20%;">
                         <h:outputText value="#{item.nomeAgendado}" />
                     </p:column>
-                    <p:column headerText="Carro">
+                    <p:column headerText="Carro" style="width: 20%;">
                         <h:outputText value="#{item.carro}" />
                     </p:column>
-                    <p:column headerText="Data">
+                    <p:column headerText="Data" style="width: 20%;">
                         <h:outputText value="#{item.dataAgendamento}" />
                     </p:column>
-                    <p:column headerText="Observações">
+                    <p:column headerText="Observações" style="width: 40%;">
                         <h:outputText value="#{item.textoLivre}" />
-                    </p:column>
+                    </p:column>                  
                 </p:dataTable>
              </h:form>
         </div>

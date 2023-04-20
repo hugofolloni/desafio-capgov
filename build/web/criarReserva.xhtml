@@ -5,33 +5,114 @@
       xmlns:p="http://primefaces.org/ui">
 
     <h:head>
-        <title>Criar Reserva</title>
+        <title>honey</title>
+        <style>
+            * {
+                padding: 0;
+                margin: 0;
+                box-sizing: border-box;
+                font-family: "Poppins", sans-serif;
+              }
+
+              body {
+                background-color: #f1f1f1;
+                height: 100vh;
+                position: relative;
+                overflow-y: hidden;
+              }
+
+              .background {
+                background-color: #5A0B4D;
+                height: 50vh;
+                width: 100%;
+                display: flex;
+                justify-content: center;
+                align-items: center;
+              }
+
+              .container {
+                position: absolute;
+                width: 40vw;
+                height: 80vh;
+                background-color: white;
+                border-radius: 12px;
+                top: 0;
+                margin-top: calc(50vh - 40vh);
+                margin-left: calc(50vw - 20vw);
+                padding: 40px;
+                box-shadow: 0px 10px 15px -3px rgba(0,0,0,0.1);
+              }
+              
+              .title {
+                  color: #5A0B4D;
+                  font-size: 24px;
+              }
+        
+              .home {
+                  position: absolute;
+                  top: 10%;
+                  left: 10%;
+                  color: white;
+                  letter-spacing: -10px;
+                  font-size: 64px;
+                  text-decoration: none;
+              }
+              
+              .row {
+                  width: 80%;
+                  display: flex;
+                  justify-content: space-between;
+              }
+              
+              .label{
+                  font-weight: 300;
+                  font-size: 16px;
+              }
+              
+              .inputs {
+                  width: 228px;
+              }
+              
+              .form {
+                  height: 100%; 
+                  display: flex; 
+                  align-items: center; 
+                  flex-direction: column; 
+                  justify-content: space-around;
+              }
+              
+        </style>
     </h:head>
-    <h:body style="display: flex; justify-content: space-around; align-items: center;">
-        <div style="display: flex; justify-content: center; align-items: center; min-height: 100vh; flex-direction: column">
-            <p:panel header="Criar Reserva">
-                <h:form style="height: 50%; display: flex; align-items: center; flex-direction: column">
+    <h:body>
+        <div class='background'></div>
+        <a class='home' href='/desafio-capgov'>honey</a>
+        <div class='container'>
+            <h1 class='title'>Agende sua próxima viagem</h1>
+                <h:form class="form">
                     <h:outputText id="msg" value="#{agendamentoBean.response}" style="margin-bottom: 20px; color: #{agendamentoBean.corResponse}"/>
-                    <p:panelGrid columns="2">
-                        <h:outputLabel for="nome" value="Nome:" />
-                        <p:inputText id="nome" value="#{agendamentoBean.nomeAgendado}" />
-
-                        <h:outputLabel for="cpf" value="CPF" />
-                        <p:inputMask id="cpf" value="#{agendamentoBean.cpf}" mask="999.999.999-99"/>
-
-                        <h:outputLabel for="obs" value="Observações" />
-                        <p:inputTextarea id="obs" value="#{agendamentoBean.textoLivre}" rows="6" cols="23"/>
-
-                        <p:outputLabel for="datetime" value="Data e Hora: " />
-                        <p:calendar id="datetime" value="#{agendamentoBean.dataAgendamento}" pattern="dd/MM/yyyy HH:mm" />
-
-                        <h:outputLabel for="carro" value="Placa do Carro" />
-                        <p:inputMask id="carro" value="#{agendamentoBean.carro}" mask="aaa9*99"/>
-                    </p:panelGrid>
-                    <p:commandButton type="submit" value="Criar Reserva" action="#{agendamentoBean.create()}" update="msg" style="margin-top: 15px" oncomplete="RedirectionJS(); {window.location.href='index.xhtml';}"/>
+                    <div class="row">
+                        <h:outputLabel class='label' for="nome" value="Nome" />
+                        <p:inputText class="inputs" id="nome" value="#{agendamentoBean.nomeAgendado}" />
+                    </div>
+                    <div class="row">    
+                        <h:outputLabel class='label' for="cpf" value="CPF" />
+                        <p:inputMask class="inputs" id="cpf" value="#{agendamentoBean.cpf}" mask="999.999.999-99"/>
+                    </div>
+                    <div class="row">
+                        <h:outputLabel class='label' for="obs" value="Observações" />
+                        <p:inputTextarea class="inputs" id="obs" value="#{agendamentoBean.textoLivre}" rows="6" cols="23"/>
+                    </div>
+                    <div class="row">
+                        <p:outputLabel class='label' for="datetime" value="Data e Hora" />
+                        <p:calendar class="inputs" id="datetime" value="#{agendamentoBean.dataAgendamento}" pattern="dd/MM/yyyy HH:mm" />
+                    </div>
+                    <div class="row">
+                        <h:outputLabel class='label' for="carro" value="Placa do Carro" />
+                        <p:inputMask class="inputs" id="carro" value="#{agendamentoBean.carro}" mask="aaa9*99"/>                    
+                    </div>
+                    <p:commandButton type="submit" value="Criar Reserva" action="#{agendamentoBean.create()}" update="msg" style="width: 10vw; margin-left: 17.5vw; margin-top: 15px; background-color: #5A0B4D; font-weight: 500; font-size: 16px; box-shadow: none; color: white; border: none;"/>
                 </h:form>
-            </p:panel>
-             <p:button outcome="index" value="Home" icon="ui-icon-home" style="margin-top: 15px"></p:button>
+          
         </div>
     </h:body>
 </html>
