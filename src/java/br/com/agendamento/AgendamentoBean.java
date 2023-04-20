@@ -24,6 +24,7 @@ public class AgendamentoBean {
     private String parametro;
     
     private String response;
+    private String corResponse;
     
     private List<Agendamento> agendamentoByCarro;
 
@@ -117,6 +118,7 @@ public class AgendamentoBean {
         }
 
         String nomeCpf = handleAgendamento.readNameByCPF(cpf);
+
         if(nomeCpf != null && !nomeCpf.isEmpty()){
             if(!nomeCpf.equals(nomeAgendado)){
                 this.setResponse("O par Cliente-CPF não pode ser agendado!") ;
@@ -196,8 +198,6 @@ public class AgendamentoBean {
         this.parametro = parametro;
     }
     
-    private String corResponse;
-    
     private void setCorResponse (String cor){
         this.corResponse = cor;
     }
@@ -228,8 +228,6 @@ public class AgendamentoBean {
          
          lista = handleAgendamento.readByCpf(cpf);
          
-         
-         
          for(Agendamento agendamento : lista){          
              int diff = (int) (data.getTime() - agendamento.getDataAgendamento().getTime());
              if(diff < 600000 && diff > -600000){
@@ -238,8 +236,7 @@ public class AgendamentoBean {
              }
          }
          
-         return true;
-         
+         return true;        
      }
      
      public boolean checkCarroData(String carro, Date data){
@@ -247,9 +244,7 @@ public class AgendamentoBean {
          List<Agendamento> lista = new ArrayList<>();
          
          lista = handleAgendamento.readByCar(carro);
-         
-         
-         
+             
          for(Agendamento agendamento : lista){          
              int diff = (int) (data.getTime() - agendamento.getDataAgendamento().getTime());
              if(diff < 600000 && diff > -600000){
@@ -257,10 +252,10 @@ public class AgendamentoBean {
                  return false;
              }
          }
-         
-         return true;
-         
+     
+         return true;        
      }
+     
      
      
      private String loginAdmin;

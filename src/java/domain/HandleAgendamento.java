@@ -52,6 +52,7 @@ public class HandleAgendamento {
 
             em.close();
             emf.close();
+
         } catch (Exception e) {
             return false;
         }   
@@ -61,6 +62,7 @@ public class HandleAgendamento {
 
     public boolean update (Long id, String nomeAgendado, Date dataAgendamento, String carro, String textoLivre, String cpf) {
         try {
+
             EntityManagerFactory emf = Persistence.createEntityManagerFactory("capgov_crud");
             EntityManager em = emf.createEntityManager();
 
@@ -75,6 +77,7 @@ public class HandleAgendamento {
 
             em.close();
             emf.close();
+
         } catch (Exception e) {
             System.err.println(e);
             return false;
@@ -85,6 +88,7 @@ public class HandleAgendamento {
 
     public boolean delete (Long id) {
         try {
+
             EntityManagerFactory emf = Persistence.createEntityManagerFactory("capgov_crud");
             EntityManager em = emf.createEntityManager();
 
@@ -95,6 +99,7 @@ public class HandleAgendamento {
 
             em.close();
             emf.close();
+
         } catch (Exception e) {
             return false;
         }   
@@ -106,6 +111,7 @@ public class HandleAgendamento {
         List<Agendamento> agendamentos = new ArrayList<Agendamento>();
 
         try {
+
             EntityManagerFactory emf = Persistence.createEntityManagerFactory("capgov_crud");
             EntityManager em = emf.createEntityManager();
 
@@ -113,6 +119,7 @@ public class HandleAgendamento {
 
             em.close();
             emf.close();
+
         } catch (Exception e) {
             return null;
         }   
@@ -124,6 +131,7 @@ public class HandleAgendamento {
         Agendamento agendamento = new Agendamento();
 
         try {
+            
             EntityManagerFactory emf = Persistence.createEntityManagerFactory("capgov_crud");
             EntityManager em = emf.createEntityManager();
 
@@ -131,6 +139,7 @@ public class HandleAgendamento {
 
             em.close();
             emf.close();
+
         } catch (Exception e) {
             return null;
         }   
@@ -142,6 +151,7 @@ public class HandleAgendamento {
         List<Agendamento> agendamentos = new ArrayList<Agendamento>();
 
         try {
+
             EntityManagerFactory emf = Persistence.createEntityManagerFactory("capgov_crud");
             EntityManager em = emf.createEntityManager();
           
@@ -149,6 +159,7 @@ public class HandleAgendamento {
 
             em.close();
             emf.close();
+            
         } catch (Exception e) {
             return null;
         }   
@@ -160,6 +171,7 @@ public class HandleAgendamento {
         List<Agendamento> agendamentos = new ArrayList<Agendamento>();
 
         try {
+
             EntityManagerFactory emf = Persistence.createEntityManagerFactory("capgov_crud");
             EntityManager em = emf.createEntityManager();
 
@@ -167,6 +179,7 @@ public class HandleAgendamento {
 
             em.close();
             emf.close();
+
         } catch (Exception e) {
             return null;
         }   
@@ -181,9 +194,7 @@ public class HandleAgendamento {
             EntityManagerFactory emf = Persistence.createEntityManagerFactory("capgov_crud");
             EntityManager em = emf.createEntityManager();
 
-            nome = em.createQuery("SELECT a.nomeAgendado FROM Agendamento a WHERE a.cpf = :cpf", String.class)
-                    .setParameter("cpf", cpf)
-                    .getSingleResult();
+            nome = em.createQuery("SELECT a.nomeAgendado FROM Agendamento a WHERE a.cpf = :cpf", String.class).setParameter("cpf", cpf).getSingleResult();
 
             em.close();
             emf.close();

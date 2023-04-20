@@ -110,8 +110,7 @@
                     <p:inputMask id="parametro" class='input' placeholder="CPF" required="true" requiredMessage="Cpf obrigatório" value="#{agendamentoBean.parametro}" mask="999.999.999-99"/>
                     <p:commandButton class='button' value="Pesquisar" action="#{agendamentoBean.buscaPorCpf()}" update='tabela' /> 
                 </div>
-            
-      
+
                 <p:dataTable var="item" value="#{agendamentoBean.buscaPorCpf()}" id="tabela" style="text-align: center; overflow-y: auto; height: 90%">         
                     <p:column headerText="Cliente" style="width: 20%;">
                         <h:outputText value="#{item.nomeAgendado}" />
